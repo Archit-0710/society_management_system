@@ -1,0 +1,6 @@
+import { Link } from 'react-router-dom'
+import { PriorityBadge, StatusBadge } from '../common/Badges'
+
+export function ComplaintList({ complaints, admin = false, onPriorityChange, prioritySaving = false }) {
+  return <div className="table-wrap"><table><thead><tr><th>ID</th>{admin && <th>Resident</th>}<th>Category</th><th>Description</th><th>Status</th><th>Priority</th><th>Created</th></tr></thead><tbody>{complaints.map((complaint) => <tr key={complaint.id}><td><Link to={`${admin ? '/admin/complaints' : '/resident/complaints'}/${complaint.id}`}>#{complaint.id}</Link></td>{admin && <td>{complaint.resident_name}</td>}<td>{complaint.category_name}</td><td className="description-cell">{complaint.description}</td><td><StatusBadge status={complaint.status} /></td><td>{admin && onPriorityChange ? <select className="priority-select" aria-label={`Priority for complaint ${complaint.id}`} value={complaint.priority} disabled={complaint.status === 'RESOLVED' || prioritySaving} onChange={(event) => onPriorityChange(complaint.id, event.target.value)}><option>LOW</option><option>MEDIUM</option><option>HIGH</option></select> : <PriorityBadge priority={complaint.priority} />}</td><td>{new Date(complaint.created_at).toLocaleDateString()}</td></tr>)}</tbody></table></div>
+}
