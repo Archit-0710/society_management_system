@@ -5,12 +5,22 @@ build/
 dist/
 wheels/
 *.egg-info
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Virtual environments
-.venv
+.venv/
+
+# uv cache
+.uv_cache/
 
 # Environment variables
 .env
+.env.*
+!.env.example
 
 # IDE
 .vscode/
